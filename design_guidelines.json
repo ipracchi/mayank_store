@@ -1,0 +1,159 @@
+{
+  "app_name": "Mayank Store Khata",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "A highly readable, trustworthy, and high-contrast digital ledger designed for Indian small business owners.",
+  "color": {
+    "surface": "#F9FAFB",
+    "onSurface": "#111827",
+    "surfaceSecondary": "#FFFFFF",
+    "onSurfaceSecondary": "#111827",
+    "surfaceTertiary": "#F3F4F6",
+    "onSurfaceTertiary": "#374151",
+    "surfaceInverse": "#1F2937",
+    "onSurfaceInverse": "#F9FAFB",
+    "brand": "#E05A33",
+    "brandPrimary": "#E05A33",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#F27C5A",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#FCEADD",
+    "onBrandTertiary": "#9A3B21",
+    "success": "#16A34A",
+    "onSuccess": "#FFFFFF",
+    "warning": "#D97706",
+    "onWarning": "#FFFFFF",
+    "error": "#DC2626",
+    "onError": "#FFFFFF",
+    "info": "#4B5563",
+    "onInfo": "#FFFFFF",
+    "border": "#E5E7EB",
+    "borderStrong": "#D1D5DB",
+    "divider": "#F3F4F6"
+  },
+  "typography": {
+    "displayFontFamily": "Geist",
+    "textFontFamily": "Geist",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous vertical breathing room for high readability. Use md (12pt) and lg (16pt) for most paddings. Touch targets must be at least 44pt.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": 1,
+  "navigation": "stack_only",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": false,
+    "do's": [],
+    "dont's": ["Do not use glass effects on ledger data screens. Clarity and performance are priority for this demographic."]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "PIN Login",
+      "purpose": "Secure the app with a 4-digit PIN for shop owner privacy.",
+      "states": {
+        "loading": "Spinner centered.",
+        "empty": "N/A",
+        "error": "Shake animation on PIN dots, red text 'Incorrect PIN'."
+      },
+      "layout": "Large MS Logo at the top. 'Enter your 4-digit PIN' text. 4 large dots indicating PIN entry. Custom oversized numeric keypad taking up the bottom 50% of the screen. 'Forgot PIN?' subtle text button at the bottom."
+    },
+    {
+      "name": "Home Dashboard",
+      "purpose": "Provide a bird's-eye view of total money to give and receive, and list all parties.",
+      "states": {
+        "loading": "Skeleton of summary cards and list.",
+        "empty": "Illustration of a shopkeeper with 'Add your first customer to get started' and a prominent CTA.",
+        "error": "Centered 'Failed to load ledger' with retry button."
+      },
+      "layout": "Header with 'Mayank Store' and a settings icon. Below header, two large summary cards side-by-side or stacked: 'You will Give' (Red text, Error color) and 'You will Get' (Green text, Success color). A search bar to find parties. A list of parties showing Name, Date of last tx, and Net Balance (color-coded red/green). A floating action button (FAB) or sticky bottom button to 'Add Party'."
+    },
+    {
+      "name": "Party Detail",
+      "purpose": "Show transaction history for a specific customer/supplier and allow adding new entries.",
+      "states": {
+        "loading": "List skeleton.",
+        "empty": "No transactions yet. 'Add your first entry below.'",
+        "error": "Failed to load transactions."
+      },
+      "layout": "Header with Party Name and Phone icon. Top summary card showing their current net balance (Red/Green) and 'Send Reminder' button (WhatsApp/SMS). Scrollable list of transactions (Date, Note, Amount with Give/Got indicator). Two sticky 50% width buttons at the very bottom: 'You Gave / ₹' (Red CTA) and 'You Got / ₹' (Green CTA)."
+    },
+    {
+      "name": "Add Transaction",
+      "purpose": "Enter amount, date, and note for a Give or Got transaction.",
+      "states": {
+        "loading": "Saving overlay spinner.",
+        "empty": "N/A",
+        "error": "Toast 'Failed to save transaction'."
+      },
+      "layout": "Modal sheet or stack screen. Large numeric input field (₹ 0). Text input for 'Add Note (Item name/Bill no)'. Date picker row (defaults to Today). Sticky 'Save' button at the bottom (Red if Giving, Green if Getting)."
+    },
+    {
+      "name": "Settings",
+      "purpose": "Manage app preferences like Language and PIN.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "List layout. Toggle for 'Language (English / Hindi)'. Row to 'Change PIN'. Row to 'Generate Monthly PDF Report'. Standard chevron list item pattern."
+    }
+  ],
+  "images": {
+    "ms_logo": {
+      "url": "https://images.unsplash.com/photo-1705904506562-f28266845273?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxEJTIwbGV0dGVyJTIwbWFyayUyMGxvZ28lMjB0eXBvZ3JhcGh5fGVufDB8fHx8MTc4MzcyODY2NXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Mayank Store Logo (MS)"
+    },
+    "shopkeeper_empty_state": {
+      "url": "https://images.unsplash.com/photo-1751901173169-1ca6df2a5f11?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzF8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBncm9jZXJ5JTIwa2lyYW5hJTIwc3RvcmUlMjBzaG9wa2VlcGVyfGVufDB8fHx8MTc4MjI5MDM3OHww&ixlib=rb-4.1.0&q=85",
+      "alt": "Indian kirana store shopkeeper for empty state"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the color scheme for financial trust: 'success' (Green #16A34A) for RECEIVABLES (You will get), and 'error' (Red #DC2626) for PAYABLES (You will give). Do not mix these up. This is critical for Indian ledger apps.",
+    "Do not use ANY blue or purple. The brand color is deep orange (#E05A33).",
+    "Use large, high-contrast typography. The target audience (shopkeepers) needs to read amounts clearly at a glance.",
+    "Implement a custom oversized numeric keypad for the PIN login screen. It should be highly tactile.",
+    "On the Party Detail screen, anchor two large buttons at the bottom: a red 'You Gave' button and a green 'You Got' button. They must be sticky above the safe area so they are always accessible.",
+    "Use Hindi translations where applicable if the toggle is activated, or mock the translation layer with a placeholder switch.",
+    "Ensure amounts are formatted with the Indian Rupee symbol (₹).",
+    "No glassmorphism. This app requires a solid, fast, utility-first UI typical of KhataBook or OkCredit.",
+    "Use the 'ms_logo' image for the app header/login screen to personalize it for 'Mayank Store'."
+  ],
+  "haptics": {
+    "keypad_press": "light",
+    "transaction_save": "success",
+    "button_press": "light",
+    "error_shake": "error"
+  }
+}
