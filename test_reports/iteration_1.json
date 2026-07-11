@@ -1,0 +1,28 @@
+{
+  "summary": "Full stack test of Mayank Store Khata (Expo/React Native + FastAPI/MongoDB). Backend: 20/20 pytest cases passed (auth, PIN change roundtrip, party CRUD with opening balance semantics +/- , transaction math opening 5000 + gave 1500 - got 2000 = 4500, summary, reminders, monthly report for 2026-07, delete cascade). Frontend UI: PIN screen renders MS logo/4 dots/custom keypad; wrong PIN shows 'Incorrect PIN' with shake; correct PIN (1234) navigates to /dashboard; dashboard shows You will Give (red) / You will Get (green ₹4,500), reminders banner, search, Add Party FAB; add-party form validates missing name, opening balance chips (none/receive/pay) toggle amount input, More info reveals firm/contact/GST/address; party detail shows correct balance (₹3,000 receive), extra info card and sticky You Gave/You Got buttons; adding a 'You Gave' 500 correctly bumps balance to ₹3,500 (client math consistent with backend); Hindi toggle switches labels; monthly report modal shows month grid + year selector; reminders screen reachable; party delete works. No deprecated Expo packages detected (uses expo-print, expo-sharing, expo-haptics, @expo/vector-icons — all current).",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "global", "issues": ["Console warnings from RN Web: 'shadow*' style props deprecated (use boxShadow) — dashboard FAB & other cards use shadowColor/shadowOffset/shadowOpacity/shadowRadius. Cosmetic only.", "'props.pointerEvents is deprecated. Use style.pointerEvents' warning from a dependency."]}
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/test_mayank_store.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Optional polish: migrate shadow* style props to boxShadow (or wrap in Platform.select) to silence RN Web deprecation warnings.",
+    "Optional: expo-print + expo-sharing PDF generation could not be exercised in web preview (Sharing unavailable on web); verify on device build."
+  ],
+  "critical_code_review_comments": [
+    "Backend uses uuid string IDs and excludes _id in projections — good.",
+    "Balance semantics are consistent between add-party opening_balance seed and later transactions (verified 5000 + 1500 - 2000 = 4500).",
+    "PATCH /parties has body.dict() (deprecated in Pydantic v2 → prefer model_dump()) — non-blocking."
+  ],
+  "updated_files": ["/app/backend/tests/test_mayank_store.py"],
+  "success_rate": {"backend": "100% (20/20)", "frontend": "100% of critical flows"},
+  "seed_data_creation": "Tests create and clean up TEST_-prefixed parties. Existing 'Ramesh Kirana' seed party retained on dashboard. UI test party was deleted at end.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "PIN is set to 1234; POST /api/auth/setup-pin returns 409 if PIN already set. Use /api/auth/change-pin to rotate. Balance convention: positive = shop to receive; negative = shop to pay. Opening balance is stored as a seed transaction of type 'gave' (positive) or 'got' (negative)."
+}
