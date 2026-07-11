@@ -259,16 +259,22 @@ export default function PartyDetail() {
           onPress={() => router.push({ pathname: "/add-transaction", params: { partyId: id, type: "gave", partyName: party.name } })}
           testID="you-gave-btn"
         >
-          <Ionicons name="arrow-up" size={18} color="#fff" />
-          <Text style={styles.stickyBtnText}>{t.youGave}</Text>
+          <Ionicons name="arrow-up" size={20} color="#fff" />
+          <View style={styles.stickyBtnLabel}>
+            <Text style={styles.stickyBtnText}>{t.youGave}</Text>
+            <Text style={styles.stickyBtnSubtext}>{t.toReceive}</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.stickyBtn, { backgroundColor: colors.success }]}
           onPress={() => router.push({ pathname: "/add-transaction", params: { partyId: id, type: "got", partyName: party.name } })}
           testID="you-got-btn"
         >
-          <Ionicons name="arrow-down" size={18} color="#fff" />
-          <Text style={styles.stickyBtnText}>{t.youGot}</Text>
+          <Ionicons name="arrow-down" size={20} color="#fff" />
+          <View style={styles.stickyBtnLabel}>
+            <Text style={styles.stickyBtnText}>{t.youGot}</Text>
+            <Text style={styles.stickyBtnSubtext}>{t.toPay}</Text>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -405,13 +411,23 @@ const styles = StyleSheet.create({
   stickyBtn: {
     flex: 1,
     flexDirection: "row",
-    gap: spacing.sm,
+    gap: spacing.md,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: spacing.lg,
+    paddingVertical: spacing.md,
     borderRadius: radius.md,
   },
-  stickyBtnText: { color: "#fff", fontWeight: "700", fontSize: fontSize.lg },
+  stickyBtnLabel: { alignItems: "flex-start" },
+  stickyBtnText: { color: "#fff", fontWeight: "700", fontSize: fontSize.lg, lineHeight: 20 },
+  stickyBtnSubtext: {
+    color: "#fff",
+    opacity: 0.85,
+    fontSize: 11,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginTop: 2,
+  },
 
   modalBg: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "flex-end" },
   modalSheet: {
