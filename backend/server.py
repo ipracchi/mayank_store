@@ -137,13 +137,17 @@ async def setup_pin(body: PinIn):
     )
     return {"ok": True}
 
-@api.post("/auth/reset-pin")
+@app.post("/api/auth/reset-pin")
 async def reset_pin():
-    await db.shop_settings.update_one(
-        {"shop_id": SHOP_ID},
-        {"$unset": {"pin_hash": ""}}
-    )
-    return {"ok": True}
+    # TODO: remove the saved PIN
+
+    global SETTINGS
+
+    SETTINGS["pin_hash"] = None
+
+    return {
+        "ok": True
+    }
     
 @api.post("/auth/verify-pin")
 async def verify_pin(body: PinIn):
