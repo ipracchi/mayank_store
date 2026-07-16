@@ -139,8 +139,8 @@ async def setup_pin(body: PinIn):
 
 @api.post("/auth/reset-pin")
 async def reset_pin():
-    await db.settings.update_one(
-        {"key": "pin"},
+    await db.shop_settings.update_one(
+        {"shop_id": SHOP_ID},
         {"$unset": {"pin_hash": ""}}
     )
     return {"ok": True}
