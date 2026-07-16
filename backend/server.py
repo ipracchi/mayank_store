@@ -170,6 +170,19 @@ async def change_pin(body: PinChangeIn):
     )
     return {"ok": True}
 
+@app.post("/api/auth/reset-pin")
+async def reset_pin():
+    await db.shop_settings.update_one(
+        {"shop_id": SHOP_ID},
+        {
+            "$set": {
+                "pin_hash": None,
+                "updated_at": datetime.utcnow(),
+            }
+        },
+        upsert=True,
+    )
+    return {"ok": True}
 
 # ---------- Parties ----------
 @api.get("/parties", response_model=List[Party])

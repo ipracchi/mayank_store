@@ -85,13 +85,12 @@ export const api = {
       body: JSON.stringify({ current_pin, new_pin }),
     }),
 
-  resetPin: () =>
+
+      resetPin: () =>
     request<{ ok: boolean }>("/auth/reset-pin", {
       method: "POST",
     }),
-
-  // ...keep all the remaining methods (parties, transactions, reports, etc.)
-};
+    
   listParties: (search?: string) => {
     const q = search ? `?search=${encodeURIComponent(search)}` : "";
     return request<Party[]>(`/parties${q}`);

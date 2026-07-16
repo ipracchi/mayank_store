@@ -32,18 +32,21 @@ export default function PinScreen() {
 
   const shake = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const status = await api.authStatus();
-        setMode(status.pin_set ? "verify" : "setup");
-      } catch {
-        setErrorText(t.error);
+useEffect(() => {
+  (async () => {
+    try {
+      const status = await api.authStatus();
+
+      if (status.pin_set) {
         setMode("verify");
+      } else {
+        setMode("setup");
       }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    } catch (e) {
+      setMode("setup");
+    }
+  })();
+}, []);
 
   const triggerShake = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
@@ -154,7 +157,14 @@ export default function PinScreen() {
           {mode === "verify" && (
             <TouchableOpacity
               style={styles.forgotBtn}
-              onPress={() => toast.show(t.forgotPinNote, "info")}
+              onPress={async () => {
+  try {
+    await api.resetPin();
+    router.replace("/");
+  } catch (e: any) {
+    toast.show(e.message, "error");
+  }
+}}
               testID="forgot-pin-btn"
             >
               <Text style={styles.forgotText}>{t.forgotPin}</Text>
