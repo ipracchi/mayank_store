@@ -170,14 +170,14 @@ async def change_pin(body: PinChangeIn):
     )
     return {"ok": True}
 
-@app.post("/api/auth/reset-pin")
+@api.post("/auth/reset-pin")
 async def reset_pin():
     await db.shop_settings.update_one(
         {"shop_id": SHOP_ID},
         {
             "$set": {
                 "pin_hash": None,
-                "updated_at": datetime.utcnow(),
+                "updated_at": now_iso(),
             }
         },
         upsert=True,

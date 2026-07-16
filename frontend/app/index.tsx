@@ -157,10 +157,17 @@ useEffect(() => {
           {mode === "verify" && (
             <TouchableOpacity
               style={styles.forgotBtn}
-              onPress={async () => {
+             onPress={async () => {
   try {
     await api.resetPin();
-    router.replace("/");
+
+    setPin("");
+    setFirstPin("");
+    setErrorText("");
+    setMode("setup");
+
+    toast.show("PIN reset successfully", "success");
+
   } catch (e: any) {
     toast.show(e.message, "error");
   }
