@@ -64,23 +64,34 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 export const api = {
-  authStatus: () => request<{ pin_set: boolean }>("/auth/status"),
+  authStatus: () =>
+    request<{ pin_set: boolean }>("/auth/status"),
+
   setupPin: (pin: string) =>
     request<{ ok: boolean }>("/auth/setup-pin", {
       method: "POST",
       body: JSON.stringify({ pin }),
     }),
+
   verifyPin: (pin: string) =>
     request<{ ok: boolean }>("/auth/verify-pin", {
       method: "POST",
       body: JSON.stringify({ pin }),
     }),
+
   changePin: (current_pin: string, new_pin: string) =>
     request<{ ok: boolean }>("/auth/change-pin", {
       method: "POST",
       body: JSON.stringify({ current_pin, new_pin }),
     }),
 
+  resetPin: () =>
+    request<{ ok: boolean }>("/auth/reset-pin", {
+      method: "POST",
+    }),
+
+  // ...keep all the remaining methods (parties, transactions, reports, etc.)
+};
   listParties: (search?: string) => {
     const q = search ? `?search=${encodeURIComponent(search)}` : "";
     return request<Party[]>(`/parties${q}`);
@@ -118,9 +129,4 @@ export const api = {
 }
   
   
-  
-  await api.resetPin();
-Alert.alert(
-  "PIN Reset",
-  "Please restart the app and create a new PIN."
-);;
+
