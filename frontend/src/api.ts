@@ -115,4 +115,12 @@ export const api = {
   getReminders: () => request<Party[]>("/reminders"),
   monthlyReport: (year: number, month: number) =>
     request<MonthlyReport>(`/report/monthly?year=${year}&month=${month}`),
-};
+}
+  
+  
+  
+  await api.resetPin();
+Alert.alert(
+  "PIN Reset",
+  "Please restart the app and create a new PIN."
+);;
